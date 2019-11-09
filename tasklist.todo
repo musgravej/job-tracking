@@ -1,0 +1,44 @@
+DS Ticket
+ ☐ ticket creation add tasks
+ ☐ put tasks in comments section
+ ☐ connected bindery job number
+ ☐ on ticket display, dynamic link to bindery ticket
+
+Bindery Ticket
+ ☐ on ticket display, dynamic link to ds ticket
+
+Update Status
+ ☐ Add complete entry
+ ☐ Add complete column to table
+
+
+Job Display / Job Board
+ ☐ View active jobs @high
+ ☐ Jobs not invoiced
+ ☐ Back n days
+ ☐ By task
+
+
+HTML changes
+ ☐ add column to search-results.html to show ticket by type (DS, B)
+ ☐ add column to quick-search-results.html to show ticket by type (DS, B)
+
+
+Database changes
+* LOG DATABASE SCHEMA CHANGES FOR UPDATES *
+ ☐ update quick_search view to include ticket type
+ ☐ update full_search view to include ticket type
+ ✔ create new database @done (19-11-08 23:18)
+
+
+Job Tasks table?
+
+
+Random Enhancements
+ ☐ Log postage checks @low
+ ☐ Upload contact information @low
+ ☐ Download database as csv @low
+      Download tables as csv files
+      Download as zip file  
+
+ ✔ place db credentials in remote config.ini file @high @done (19-11-08 23:41)

@@ -16,6 +16,8 @@ app/static/*
 /app/templates/templates_bak
 .idea
 notes.txt
+*.sublime*
+config.ini
 
 # Distribution / packaging
 .Python

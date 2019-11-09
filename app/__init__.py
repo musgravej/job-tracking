@@ -4,13 +4,26 @@ import datetime
 import mysql.connector
 import datetime as dt
 # import os
+import configparser
 
 app = Flask(__name__)
 app.config.from_object('config.DevelopConfig')
 
 
+def set_db_param():
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+
+    g.host = config['db_param']['host']
+    g.user = config['db_param']['user']
+    g.password = config['db_param']['password']
+    g.app_database = config['db_param']['app_db']
+    g.weather_database = config['db_param']['weather_db']
+
+
 @app.before_request
 def before_request():
+    set_db_param()
     g.user_cnx = connect_user_db()
     g.weather_cnx = connect_weather_db()
     g.program_ver = '1.41'
@@ -24,17 +37,13 @@ def close_db(error=None):
 
 
 def connect_user_db():
-    return mysql.connector.connect(user='root', password='root4dhv',
-                                   host='localhost', database='flask')
-    # return mysql.connector.connect(user='jobAppUser', password='sql&appusr1',
-    #                                host='localhost', database='flask')
+    return mysql.connector.connect(user=g.user, password=g.password,
+                                   host=g.host, database=g.app_database)
 
 
 def connect_weather_db():
-    return mysql.connector.connect(user='root', password='root4dhv',
-                                   host='localhost', database='weather')
-    # return mysql.connector.connect(user='jobAppUser', password='sql&appusr1',
-    #                                host='localhost', database='weather')
+    return mysql.connector.connect(user=g.user, password=g.password,
+                                   host=g.host, database=g.weather_database)
 
 
 @app.route("/")
@@ -312,7 +321,7 @@ def new_bindery_ticket():
 
                     cursor.execute(cmd_job_detail, (new_num, usr.get('customer', '')[0:65],
                                                     usr.get('jobname', '')[0:65],
-                                                    None, "1", request.environ['REMOTE_ADDR'], "0"))
+                                                    None, 1, request.environ['REMOTE_ADDR'], 0))
 
                     cursor.execute(cmd_ticket_detail, (new_num, usr.get('prevJob'), usr.get('quote'),
                                                        due_date, usr.get('customer', '')[0:65],
