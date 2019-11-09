@@ -1,0 +1,96 @@
+{% extends "table_result_layout.html" %}
+{% block content %}
+
+  <style>
+    h4 {
+      background-color: #8c8c8c;
+      color: white;
+    }
+  </style>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+        <h4>Ver 1.0</h4>
+        <ul style="list-style-type:circle">
+          <li>Initial program deployment</li>
+        </ul>
+        <h4>Ver 1.1</h4>
+        <ul style="list-style-type:none">
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Program changes</h5>
+            <li>Changed some database fields to cut off long text</li>
+            <li>Changed some fields on the job ticket to print without word wrap</li>
+            <li>Corrected instance where some fields with checkboxes would display
+              as 'checked on the job ticket'</li>
+            <li>Program will not explicitly assign the next job number as n+1 of last job number</li>
+            <li>Program will rollback errors when creating new tickets to avoid unassigned job numbers</li>
+            <li>Program will rollback errors when editing / copying tickets to avoid database errors</li>
+            <li>Program will display errors in a flash box when editing / copying / creating tickets</li>
+            <li>Added program version to home page</li>
+            <li>Added customer PO field to job ticket</li>
+            <li>Added the ability to search jobs by customer PO field</li>
+            <li>Program will close db connection in @app.teardown_appcontext</li>
+          </ul>
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Database Changes</h5>
+            <li>Changed field lengths to avoid extra long text</li>
+            <li>Added view 'next_jobnumber'</li>
+            <li>Updated view 'select_ticket'</li>
+            <li>Updated view 'edit_ticket'</li>
+            <li>Changed ticket_detail.cnt_insert to varchar type</li>
+          </ul>
+        </ul>
+        <h4>Ver 1.2</h4>
+        <ul style="list-style-type:none">
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Program changes</h5>
+            <li>Updated pages to include proper page names, not paths</li>
+            <li>When displaying job search results no invoice will display as '', instead of 'None'</li>
+            <li>When editing or repeating a ticket comments, bindery, and shipping field no longer
+              show &lt;br&gt; tag</li>
+            <li>Updated app favicon</li>
+            <li>When using dates as search criteria, empty fields will be interpreted as today</li>
+            <li>When using dates as search criteria, dates are reordered to always start
+              at the furthest date, and end at the most recent date</li>
+            <li>Removed mouse hover action on 'Quick Links' text in the toolbar</li>
+            <li>Added 'New Ticket' link to the top toolbar</li>
+          </ul>
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Database Changes</h5>
+            <li>Updated 'edit_ticket' view so insert field would no longer display 'checked' when empty</li>
+          </ul>
+        </ul>
+        <h4>Ver 1.3</h4>
+        <ul style="list-style-type:none">
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Program changes</h5>
+            <li>Extended the size of the 'Qty' box on the job ticket</li>
+            <li>Repeat job now correctly use updated due date</li>
+            <li>Corrected error where job search feature would not search for jobs beyond the
+              50 most recently created</li>
+          </ul>
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Database Changes</h5>
+            <li>Added new view 'full_search'</li>
+          </ul>
+        </ul>
+        <h4>Ver 1.4</h4>
+        <ul style="list-style-type:none">
+          <ul style="list-style-type:circle">
+            <h5 style="font-weight: bold;">Program changes</h5>
+            <li>Removed &lt;br&gt; tag from bindery field on job ticket</li>
+            <li>Corrected an error where certain circumstances would cause the bindery and shipping fields
+              to not appear when editing a ticket</li>
+            <li>Searches by PO number are all by near ("LIKE '%*%'") matches</li>
+            <li>Job ticket field 'Bindery' will only display two lines (max), regardless of the database field size</li>
+            <li>Job ticket field 'Shipping' will only display one line (max), regardless of the database field size</li>
+            <li>Job ticket field 'Comments' will only display 15 lines (max), regardless of the database field size</li>
+          </ul>
+        </ul>
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+  </div>
+{% endblock %}

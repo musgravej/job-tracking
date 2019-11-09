@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Tinylab-Android-Lollipop-Apps-Data-Meter.ico') }}">
+</head>
+
+  <style>
+    .navbar{
+      {#background-color: #8a8a8a;#}
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+  </style>
+
+<body>
+
+  <!--Adapted from: https://www.w3schools.com/bootstrap/bootstrap_templates.asp-->
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#myNavbar" style="background-color: dodgerblue">
+          <span class="icon-bar" style="background-color: #f1f1f1"></span>
+          <span class="icon-bar" style="background-color: #f1f1f1"></span>
+          <span class="icon-bar" style="background-color: #f1f1f1"></span>
+        </button>
+        <a class="navbar-brand" style="pointer-events: none;">Quick Links</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('weather_data') }}">Weather Data</a></li>
+          <li><a href="{{ url_for('job_search') }}">Job Search</a></li>
+          <li><a href="{{ url_for('update_status') }}">Update Status</a></li>
+          <li><a href="{{ url_for('new_ticket') }}">New Ticket</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+{#  <div class="col-sm-9">#}
+  {% block content %}
+
+  {% endblock %}
+{#  </div>#}
+
+</body>
+</html>

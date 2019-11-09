@@ -1,0 +1,63 @@
+function EnableDisableByDateSearch(searchDateCheckBox) {
+        {# Search by Date Range Only #}
+        {# customer section #}
+        var inputCustomer = document.getElementById("inputCustomer");
+        var chkNearMatch = document.getElementById("near_match")
+        var chkDateRange = document.getElementById("chkDateRange")
+        var dateStart = document.getElementById("dateStart");
+        var dateEnd = document.getElementById("dateEnd");
+        var customer_submit = document.getElementById("customer_submit")
+        {# -------------- #}
+
+        {# special search section #}
+        {# by job number #}
+        var chkJobNumber = document.getElementById("chkJobNo")
+        var jobNumber = document.getElementById("jobNumber");
+        {#by invoice number#}
+        var chkInvoiceNumber = document.getElementById("chkInvoiceNo")
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        {#by date range#}
+        var searchDateStart = document.getElementById("searchDateStart");
+        var searchDateEnd = document.getElementById("searchDateEnd");
+        var chkSearchDateRange = document.getElementById("chkSearchDateRange");
+        {#special submit#}
+        var special_submit = document.getElementById("special_submit")
+        {# -------------------- #}
+
+        {# Disable / Enable search date start/end boxes by the state of the checkbox #}
+        searchDateStart.disabled = searchDateCheckBox.checked ? false : true;
+        searchDateEnd.disabled = searchDateCheckBox.checked ? false : true;
+
+        {# Uncheck all other checkboxes #}
+        chkJobNumber.checked = false;
+        chkInvoiceNumber.checked = false;
+        chkNearMatch.checked = false;
+        chkDateRange.checked = false;
+
+        {# Disable all other input boxes #}
+        inputCustomer.disable = true;
+        dateStart.disable = true;
+        dateEnd.disable = true;
+        customer_submit.disable = true;
+        jobNumber.disable = true;
+        invoiceNumber.disable = true;
+
+        {# Set focus to start date if checked, if unchecked #}
+        if (!searchDateStart.disabled) {
+            searchDateStart.focus();
+        }
+
+        if ((chkJobNumber.checked ? false: true) &&
+            (chkInvoiceNumber.checked ? false: true) &&
+            (chkSearchDateRange.checked ? false: true)) {
+
+          document.getElementById("inputCustomer").disabled = false;
+          document.getElementById("near_match").disabled = false;
+          document.getElementById("chkDateRange").disabled = false;
+
+          document.getElementById("customer_submit").disabled = false;
+          document.getElementById("special_submit").disabled = true;
+        }
+
+
+    }

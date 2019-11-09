@@ -1,0 +1,59 @@
+{% extends "table_result_layout.html" %}
+{% block content %}
+
+  <style>
+
+    .inline-button {
+      margin-top:26px;
+    }
+
+  </style>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-9 col-sm-9"><h2><b>30 Day Weather Log</b></h2></div>
+    </div>
+
+    <p><b>7 Day History </b>
+      <em>
+      {% for val in weekview %}
+        Average noon temperature: {{ val[0] }}&deg;F,
+        Max temperature: {{ val[1] }}&deg;F,
+        Min temperature: {{ val[2] }}&deg;F
+      {% endfor %}
+    </em></p>
+
+    <p>Result Count: {{ monthview|length }}</p>
+    <table class="table table-bordered table-responsive table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>&deg;F</th>
+          <th>Pressure</th>
+          <th>Humidity</th>
+          <th>Wind Speed</th>
+          <th>Wind Direction</th>
+          <th>Cloud Cover</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for val in monthview %}
+        <tr>
+          <td>{{ val[0] }}</td>
+          <td>{{ val[1] }}</td>
+          <td>{{ val[2] }}</td>
+          <td>{{ val[3] }}</td>
+          <td>{{ val[4] }}</td>
+          <td>{{ val[5] }}</td>
+          <td>{{ val[6] }}</td>
+          <td>{{ val[7] }}</td>
+          <td>{{ val[8] }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

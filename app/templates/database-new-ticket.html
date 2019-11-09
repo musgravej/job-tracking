@@ -1,0 +1,561 @@
+{% extends "table_result_layout.html" %}
+{% block content %}
+
+  <style>
+    .bordered {
+      border: red 1px solid;
+    }
+
+    #formBody {
+      min-width: 820px;
+      max-width: 992px;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {
+      height: 15.35in;
+    }
+
+    #panelBody {
+      min-width: 800px;
+      max-width: 972px;
+    }
+
+    /* Set gray background color and 100% height */
+    .sidebar {
+      padding-top: 20px;
+      background-color: #8a8a8a;
+      height: 100%;
+      padding-left: 10px;
+    }
+
+    .btn {
+      background-color: #23527c;
+      color: white;
+      width: 115px;
+    }
+
+  </style>
+
+  <script type="text/javascript">
+    function EnableDisableIndicia(chkIndicia) {
+        var inputIndicia = document.getElementById("id-indicia");
+
+        inputIndicia.disabled = chkIndicia.checked ? false : true;
+
+        if (!inputIndicia.disabled) {
+            inputIndicia.focus();
+        }
+
+        if (inputIndicia.disabled) {
+            inputIndicia.value = '';
+        }
+
+    }
+
+    function EnableDisableListCnt(chkListCnt) {
+        var inputListCnt = document.getElementById("id-listCnt");
+
+        inputListCnt.disabled = chkListCnt.checked ? false : true;
+
+        if (!inputListCnt.disabled) {
+            inputListCnt.focus();
+        }
+
+        if (inputListCnt.disabled) {
+            inputListCnt.value = '';
+        }
+
+    }
+
+    function EnableDisableOtherOutput(chkOutputOther) {
+        var inputOutputOther = document.getElementById("id-outputOther");
+
+        inputOutputOther.disabled = chkOutputOther.checked ? false : true;
+
+        if (!inputOutputOther.disabled) {
+            inputOutputOther.focus();
+        }
+
+        if (inputOutputOther.disabled) {
+            inputOutputOther.value = '';
+        }
+
+    }
+
+    function EnableDisableTab(chkTab) {
+        var inputTab = document.getElementById("id-tab");
+
+        inputTab.disabled = chkTab.checked ? false : true;
+
+        if (!inputTab.disabled) {
+            inputTab.focus();
+        }
+
+        if (inputTab.disabled) {
+            inputTab.value = '';
+        }
+
+    }
+
+    function EnableDisableInsert(chkInsert) {
+        var inputInsert = document.getElementById("id-insert");
+
+        inputInsert.disabled = chkInsert.checked ? false : true;
+
+        if (!inputInsert.disabled) {
+            inputInsert.focus();
+        }
+
+        if (inputInsert.disabled) {
+            inputInsert.value = '';
+        }
+
+    }
+
+  </script>
+
+  <form action="#" method="POST">
+    <div>
+      <div id="formBody" class="container-fluid col-xs-12">
+        <div id="formBody" class="row content">
+          <div class="col-xs-2 sidebar">
+
+              <div class="" style="position: fixed;">
+                <p>
+                  {% if action == 'edit' %}
+                    <button id="inputNewTicket" style="font-size-adjust: .48;" type="submit" class="input submit inline-button btn btn-default pull-right input">
+                      <span class="glyphicon glyphicon-floppy-disk"></span> save changes
+                    </button>
+                  {% endif %}
+                  {% if action == 'repeat' %}
+                    <button id="inputNewTicket" type="submit" class="input submit inline-button btn btn-default pull-right input">
+                      <span class="glyphicon glyphicon-paste"></span> new ticket
+                    </button>
+                  {% endif %}
+                </p>
+              </div>
+
+          </div>
+          <div class="container-fluid col-xs-5" style="height: 85px">
+            {% if action == 'edit' %}
+              <h2 style="color: #ac2925;"><strong>{{ job_number }}</strong></h2>
+              <h5 style="color: #ac2925;">EDITING TICKET</h5>
+            {% endif %}
+            {% if action == 'repeat' %}
+              <h2 style="color: #ac2925;"><strong>COPYING {{ job_number }}</strong></h2>
+              <h5 style="color: #ac2925;">New job numbers are assigned automatically</h5>
+            {% endif %}
+          </div>
+          <div class="container-fluid col-xs-5" style="height: 85px;">
+            {% with messages = get_flashed_messages(with_categories=false) %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-danger">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+
+          <div class="panel-group">
+            <div class="panel panel-default col-xs-10">
+              <div id="panelBody" class="panel-body">
+                <label for="contactInformation" style="font-size: large">Contact Information</label>
+                <div class="container-fluid" style="line-height: 18px;" id="contactInformation">
+
+                    <div class="row">
+                      <div class="col-xs-3">
+                        Previous Job:<input title="" type="text" id="id-prevJob" class="form-control input-sm" name="prevJob" value="{{ previous_job }}">
+                      </div>
+                      <div class="col-xs-3">
+                        Quote:<input title="" type="text" id="id-quote" class="form-control input-sm" name="quote" value="{{ quote }}">
+                      </div>
+                      <div class="col-xs-4">
+                        {% if due_date == 'TBD' %}
+                          Due Date (yyyy-mm-dd)<input title="" type="date" id="id-dueDate" class="form-control input-sm" name="dueDate">
+                        {% else %}
+                          Due Date (yyyy-mm-dd)<input title="" type="date" id="id-dueDate" class="form-control input-sm" value="{{ due_date }}" name="dueDate">
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        Customer:<input title="" list="top_50_co" id="id-customer" class="form-control input-sm" name="customer" value="{{ customer }}">
+                      </div>
+                      <div class="col-xs-2">
+                        Rep<input title="" type="text" id="id-rep" class="form-control input-sm" name="rep" value="{{ rep }}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8">
+                        Job Name:<input title="" type="text" id="id-job_name" class="form-control input-sm" name="jobname" value="{{ job_name }}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-4">
+                        Contact:<input title="" type="text" id="id-contact" class="form-control input-sm" name="contact" value="{{ contact }}">
+                      </div>
+                      <div class="col-xs-3">
+                        Phone:<input title="" type="tel" id="id-phone" class="form-control input-sm" name="phone" value="{{ phone }}">
+                      </div>
+                      <div class="col-xs-3">
+                        Cell:<input title="" type="tel" id="id-cell" class="form-control input-sm" name="cell" value="{{ cell }}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8">
+                        Email:<input title="" type="email" id="id-email" class="form-control input-sm" name="email" value="{{ email }}">
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default col-xs-10">
+              <div id="panelBody" class="panel-body">
+                <label for="generalInformation" style="font-size: large">General Information</label>
+                <div class="container-fluid" style="line-height: 18px;" id="id-generalInformation">
+                  <div class="row">
+                    <label style="color: #5e5e5e;" class="col-xs-2">Input</label>
+                  </div>
+
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label for="chkEmail" style="font-weight: normal" for="chkEmail">
+                          <input title="" value="1" type="checkbox" id="chkEmail" name="chkEmail" {{ chk_email }}/>
+                          Email
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkCD">
+                          <input title="" value="1" type="checkbox" id="id-chkCD" name="chkCD" {{ chk_cd }}/>
+                          CD ROM
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkFTP">
+                          <input title="" value="1" type="checkbox" id="id-chkFTP" name="chkFTP" {{ chk_ftp }}/>
+                          FTP
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-4">
+                        Other<input title="" type="text" id="id-otherSource" class="form-control input-sm" name="otherSource" value="{{ other_source }}">
+                      </div>
+                      <div class="col-xs-4">
+                        Customer PO<input title="" type="text" id="id-customerPO" class="form-control input-sm" name="customerPO" value="{{ customer_po }}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8">
+                        File Name<input title="" type="text" id="id-fileName" class="form-control input-sm" name="fileName" value="{{ file_name }}">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label style="color: #5e5e5e; margin-top: 30px" class="col-xs-2">Maintenance</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkMerge">
+                          <input class="" title="" value="1" type="checkbox" id="id-chkMerge" name="chkMerge" {{ chk_merge }}/>
+                          Merge
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkDeDupe">
+                          <input title="" value="1" type="checkbox" id="id-chkDeDupe" name="chkDeDupe" {{ chk_dedupe }}/>
+                          De-Dupe
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkPresort">
+                          <input title="" value="1" type="checkbox" id="id-chkPresort" name="chkPresort" {{ chk_presort }}/>
+                          Presort
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkNCOA">
+                          <input title="" value="1" type="checkbox" id="id-chkNCOA" name="chkNCOA" {{ chk_ncoa }}/>
+                          NCOA
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkTNT">
+                          <input title="" value="1" type="checkbox" id="id-chkTNT" name="chkTNT" {{ chk_tnt }}/>
+                          TNT
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label style="color: #5e5e5e" class="col-xs-2">Postal Specs</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkFCM">
+                          <input title="" value="1" type="checkbox" id="id-chkFCM" name="chkFCM" {{ chk_fcm }}/>
+                          First Class
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkSTD">
+                          <input title="" value="1" type="checkbox" id="id-chkSTD" name="chkSTD" {{ chk_std }}/>
+                          Standard
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkNP">
+                          <input title="" value="1" type="checkbox" id="id-chkNP" name="chkNP" {{ chk_np }}/>
+                          Non-Profit
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkMeter">
+                          <input title="" value="1" type="checkbox" id="id-chkMeter" name="chkMeter" {{ chk_meter }}/>
+                          Meter
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkBPM">
+                          <input title="" value="1" type="checkbox" id="id-chkBPM" name="chkBPM" {{ chk_bpm }}/>
+                          BPM
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkStamp">
+                          <input title="" value="1" type="checkbox" id="id-chkStamp" name="chkStamp" {{ chk_stamp }}/>
+                          Stamp
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkPeriodical">
+                          <input title="" value="1" type="checkbox" id="id-chkPeriodical" name="chkPeriodical" {{ chk_periodical }}/>
+                          Periodical
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkPostcard">
+                          <input title="" value="1" type="checkbox" id="id-chkPostcard" name="chkPostcard" {{ chk_postcard }}/>
+                          Postcard
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkIndicia">
+                          <input title="" value="1" type="checkbox" id="id-chkIndicia" {{ chk_indicia }} name="chkIndicia" onclick="EnableDisableIndicia(this)"/>
+                          Indicia
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="i-indicia">
+                          {% if chk_indicia == '' %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-indicia" name="indicia" disabled/>
+                          {% else %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-indicia" value='{{ indicia }}' name="indicia" />
+                          {% endif %}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkMatch">
+                          <input title="" value="1" type="checkbox" id="id-chkMatch" name="chkMatch" {{ chk_match }}/>
+                          Match Mail
+                        </label>
+                      </div>
+                      <div class="col-xs-4">
+                        <label style="font-weight: normal" for="chkCRRT">
+                          <input title="" value="1" type="checkbox" id="id-chkCRRT" name="chkCRRT" {{ chk_crrt }}/>
+                          Carrier Route
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkListCnt">
+                          <input title="" value="1" type="checkbox" id="id-chkListCnt" {{ chk_lists }} name="chkListCnt" onclick="EnableDisableListCnt(this)"/>
+                          Lists
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="i-listCnt">
+                          {% if chk_lists == '' %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-listCnt" name="listCnt" disabled/>
+                          {% else %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-listCnt" value='{{ lists }}' name="listCnt"/>
+                          {% endif %}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label style="color: #5e5e5e" class="col-xs-2">Output</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkInkjet">
+                          <input title="" value="1" type="checkbox" id="id-chkInkjet" name="chkInkjet" {{ chk_inkjet }}/>
+                          Inkjet
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkLaser">
+                          <input title="" value="1" type="checkbox" id="id-chkLaser" name="chkLaser" {{ chk_laser }}/>
+                          Laser
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkLabels">
+                          <input title="" value="1" type="checkbox" id="id-chkLabels" name="chkLabels" {{ chk_labels }}/>
+                          Labels
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkOutputOther">
+                          <input title="" value="1" type="checkbox" id="id-chkOutputOther" {{ chk_output_other }} name="chkOutputOther" onclick="EnableDisableOtherOutput(this)"/>
+                          Other
+                        </label>
+                      </div>
+                      <div class="col-xs-4">
+                        <label style="font-weight: normal" for="i-outputOther">
+                          {% if chk_output_other == '' %}
+                            <input title="" type="text" style="margin-left: -55px;" id="id-outputOther" name="outputOther" disabled/>
+                          {% else %}
+                            <input title="" type="text" style="margin-left: -55px;" id="id-outputOther" value='{{ output_other }}' name="outputOther"/>
+                          {% endif %}
+                        </label>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default col-xs-10">
+              <div id="panelBody" class="panel-body">
+                <label for="generalInformation" style="font-size: large">Fulfillment</label>
+                <div class="container-fluid" style="line-height: 18px;" id="generalInformation">
+                  <div class="row">
+                    <label style="color: #5e5e5e;" class="col-xs-4">Mail Processing</label>
+                  </div>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+                        Qty:<input title="" type="text" id="id-jobQty" class="form-control input-sm" name="jobQty" value="{{ qty }}">
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkFold">
+                          <input title="" value="1" type="checkbox" id="id-chkFold" name="chkFold" {{ chk_fold }}/>
+                          Fold
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkTab">
+                          <input title="" value="1" type="checkbox" id="id-chkTab" name="chkTab" {{ chk_tab }} onclick="EnableDisableTab(this)"/>
+                          Tab
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="i-tab">
+                          {% if chk_tab == '' %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-tab" name="tab" disabled/>
+                          {% else %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-tab" value='{{ tab }}' name="tab"/>
+                          {% endif %}
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkInsert">
+                          <input title="" value="1" type="checkbox" id="id-chkInsert" name="chkInsert" {{ chk_insert }} onclick="EnableDisableInsert(this)"/>
+                          Insert
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="i-insert">
+                          {% if chk_insert == '' %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-insert" name="insert" disabled/>
+                          {% else %}
+                            <input title="" type="text" style="margin-left: -55px;width: 100px;" id="id-insert" value='{{ cnt_insert }}' name="insert" />
+                          {% endif %}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkJumbo">
+                          <input title="" value="1" type="checkbox" id="id-chkJumbo" name="chkJumbo" {{ chk_jumbo }} />
+                          Jumbo
+                        </label>
+                      </div>
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkPoly">
+                          <input title="" value="1" type="checkbox" id="id-chkPoly" name="chkPoly" {{ chk_poly }} />
+                          Poly
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label style="color: #5e5e5e;" class="col-xs-4">Digital</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <label style="font-weight: normal" for="chkDuplexColor">
+                          <input title="" value="1" type="checkbox" id="id-chkDuplexColor" name="chkDuplexColor" {{ chk_duplex_color }}/>
+                          4/4
+                        </label>
+                      </div>
+                      <div class="col-xs-2" style="margin-left: -50px;">
+                        <label style="font-weight: normal" for="chkSimplexColor">
+                          <input title="" value="1" type="checkbox" id="id-chkSimplexColor" name="chkSimplexColor" {{ chk_simplex_color }}/>
+                          4/0
+                        </label>
+                      </div>
+                      <div class="col-xs-2" style="margin-left: -50px;">
+                        <label style="font-weight: normal" for="chkDuplex">
+                          <input title="" value="1" type="checkbox" id="id-chkDuplex" name="chkDuplex" {{ chk_duplex }}/>
+                          1/1
+                        </label>
+                      </div>
+                      <div class="col-xs-2" style="margin-left: -50px;">
+                        <label style="font-weight: normal" for="chkSimplex">
+                          <input title="" value="1" type="checkbox" id="id-chkSimplex" name="chkSimplex" {{ chk_simplex }}/>
+                          1/0
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8">
+                        Stock:<input title="" type="text" id="id-stock" class="form-control input-sm" name="stock" value="{{ stock }}">
+                      </div>
+                    </div>
+{#                    <br>#}
+                    <div class="row col-xs-10">
+                      Bindery:<textarea class="form-control" id="id-binderyInput" rows="1" name="binderyInput" >{{ print_bindery }}</textarea>
+                    </div>
+                    <div class="row col-xs-10">
+                      Shipping:<textarea class="form-control" id="id-shippingInput" rows="1" name="shippingInput" >{{ print_shipping }}</textarea>
+                    </div>
+                    <div class="row col-xs-10">
+                      Comments:<textarea class="form-control" id="id-commentInput" rows="7" name="commentInput" >{{ print_comment }}</textarea>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  {#        Keep three div below#}
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <datalist id="top_50_co">
+    {% for co in top_50_co %}
+      <option value="{{co['customer']}}">
+    {% endfor %}
+  </datalist>
+
+{% endblock content %}

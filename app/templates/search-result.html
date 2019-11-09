@@ -1,0 +1,53 @@
+{% extends "table_result_layout.html" %}
+{% block content %}
+
+  <style>
+
+    .inline-button{
+      margin-top:26px;
+    }
+
+  </style>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6"><h2><b>Search Results</b></h2></div>
+      <div class="col-xs-6">
+        <a href="{{ url_for('job_search') }}">
+          <button type="button" style="background-color: #23527c; color: white;"
+                  class="inline-button btn btn-default pull-right">
+            <span class="glyphicon glyphicon-arrow-left"></span> new search
+          </button>
+        </a>
+      </div>
+    </div>
+    <p>Table results: {{ cursor|length }}</p>
+    <table class="table table-bordered table-responsive table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Job Number</th>
+          <th>Customer</th>
+          <th>Description</th>
+          <th>Create Date</th>
+          <th>Invoice Number</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for val in cursor %}
+        <tr>
+          {% if val[6] == 1 %}
+            <td><a href="{{ url_for('ticket_link', job_number=val[0]) }}">{{ val[0] }}</a></td>
+          {% else %}
+            <td>{{ val[0] }}</td>
+          {% endif %}
+          <td>{{ val[1] }}</td>
+          <td>{{ val[2] }}</td>
+          <td>{{ val[3] }}</td>
+          <td>{{ val[4] }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

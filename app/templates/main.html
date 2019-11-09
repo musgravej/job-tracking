@@ -1,0 +1,50 @@
+{% extends "layout_bootstrap.html" %}
+
+{% block content %}
+  <style>
+
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: #3c78a9;
+      text-align: center;
+    }
+
+    .bordered {
+      border: red 1px solid;
+    }
+
+  </style>
+
+  <h1>Welcome</h1>
+  <h2>The date and time is {{time}}</h2>
+  <h2>Click here for
+      <a href="{{ url_for('job_search') }}">Job search</a>
+      page
+  </h2>
+  <h3>
+      <ul>
+          <li><a href="{{ url_for('update_status', job_number=None) }}">Update Job Status</a></li>
+          <li><a href="{{ url_for('weather_data') }}">Weather data</a></li>
+          <hr/>
+          <li><a href="{{ url_for('new_ticket') }}">New Data Solutions ticket</a></li>
+          <hr/>
+          <li><a href="{{ url_for('new_bindery_ticket') }}">New Bindery ticket</a></li>
+      </ul>
+  </h3>
+
+  <div class="footer">
+    <p>
+      <a href="{{ url_for('change_log') }}">Ver: {{ ver }}</a>
+      <small>({{ ver_date }})</small>
+    </p>
+  </div>
+{% endblock %}

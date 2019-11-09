@@ -1,0 +1,352 @@
+{% extends "layout_bootstrap.html" %}
+{% block content %}
+
+  <script type="text/javascript">
+    function EnableDisableDateRange(dateCheckBox) {
+        var dateEnd = document.getElementById("dateEnd");
+        var dateStart = document.getElementById("dateStart");
+
+        dateEnd.disabled = dateCheckBox.checked ? false : true;
+        dateStart.disabled = dateCheckBox.checked ? false : true;
+
+        if (!dateStart.disabled) {
+            dateStart.focus();
+        }
+    }
+
+    function EnableDisableByPOSearch(search_po_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        var jobNumber = document.getElementById("jobNumber");
+        var customer_po = document.getElementById("customer_po");
+
+        customer_po.disabled = search_po_checkbox.checked ? false : true;
+
+        invoiceNumber.value = '';
+        jobNumber.value = '';
+
+        document.getElementById("chkInvoiceNo").checked = false;
+        document.getElementById("jobNumber").checked = false;
+        document.getElementById("chkSearchDateRange").checked = false;
+        document.getElementById("chkDateRange").checked = false;
+        document.getElementById("chkJobNo").checked = false;
+
+        document.getElementById("inputCustomer").disabled = true;
+        document.getElementById("near_match").disabled = true;
+        document.getElementById("chkDateRange").disabled = true;
+        document.getElementById("searchDateStart").disabled = true;
+        document.getElementById("searchDateEnd").disabled = true;
+        document.getElementById("dateStart").disabled = true;
+        document.getElementById("dateEnd").disabled = true;
+
+        document.getElementById("customer_submit").disabled = true;
+        document.getElementById("special_submit").disabled = false;
+
+        invoiceNumber.disabled = true;
+        jobNumber.disabled = true;
+
+        if (!customer_po.disabled) {
+            customer_po.focus();
+        }
+
+        if (customer_po.disabled) {
+            customer_po.value = '';
+        }
+
+        if ((document.getElementById("chkJobNo").checked ? false: true) &&
+            (document.getElementById("chkInvoiceNo").checked ? false: true) &&
+            (document.getElementById("chkSearchCustomerPO").checked ? false: true) &&
+            (document.getElementById("chkSearchDateRange").checked ? false: true)) {
+
+          document.getElementById("inputCustomer").disabled = false;
+          document.getElementById("near_match").disabled = false;
+          document.getElementById("chkDateRange").disabled = false;
+
+          document.getElementById("customer_submit").disabled = false;
+          document.getElementById("special_submit").disabled = true;
+        }
+    }
+
+    function EnableDisableByJobNumber(jobno_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        var jobNumber = document.getElementById("jobNumber");
+        var customer_po = document.getElementById("customer_po");
+
+        jobNumber.disabled = jobno_checkbox.checked ? false : true;
+
+        invoiceNumber.value = '';
+        customer_po.value = '';
+
+        document.getElementById("chkInvoiceNo").checked = false;
+        document.getElementById("chkSearchDateRange").checked = false;
+        document.getElementById("chkDateRange").checked = false;
+        document.getElementById("chkSearchCustomerPO").checked = false;
+
+        document.getElementById("inputCustomer").disabled = true;
+        document.getElementById("near_match").disabled = true;
+        document.getElementById("chkDateRange").disabled = true;
+        document.getElementById("searchDateStart").disabled = true;
+        document.getElementById("searchDateEnd").disabled = true;
+        document.getElementById("dateStart").disabled = true;
+        document.getElementById("dateEnd").disabled = true;
+
+        document.getElementById("customer_submit").disabled = true;
+        document.getElementById("special_submit").disabled = false;
+
+        invoiceNumber.disabled = true;
+        customer_po.disabled = true;
+
+        if (!jobNumber.disabled) {
+            jobNumber.focus();
+        }
+
+        if (jobNumber.disabled) {
+            jobNumber.value = '';
+        }
+
+        if ((document.getElementById("chkJobNo").checked ? false: true) &&
+            (document.getElementById("chkInvoiceNo").checked ? false: true) &&
+            (document.getElementById("chkSearchCustomerPO").checked ? false: true) &&
+            (document.getElementById("chkSearchDateRange").checked ? false: true)) {
+
+          document.getElementById("inputCustomer").disabled = false;
+          document.getElementById("near_match").disabled = false;
+          document.getElementById("chkDateRange").disabled = false;
+
+          document.getElementById("customer_submit").disabled = false;
+          document.getElementById("special_submit").disabled = true;
+        }
+    }
+
+    function EnableDisableByInvoiceNumber(invoice_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        var jobNumber = document.getElementById("jobNumber");
+        var customer_po = document.getElementById("customer_po");
+
+        invoiceNumber.disabled = invoice_checkbox.checked ? false : true;
+
+        document.getElementById("chkJobNo").checked = false;
+        jobNumber.value = '';
+        customer_po.value = '';
+
+        document.getElementById("chkSearchDateRange").checked = false;
+        document.getElementById("chkDateRange").checked = false;
+        document.getElementById("chkJobNo").checked = false;
+        document.getElementById("chkSearchCustomerPO").checked = false;
+
+        document.getElementById("inputCustomer").disabled = true;
+        document.getElementById("near_match").disabled = true;
+        document.getElementById("chkDateRange").disabled = true;
+        document.getElementById("searchDateStart").disabled = true;
+        document.getElementById("searchDateEnd").disabled = true;
+        document.getElementById("dateStart").disabled = true;
+        document.getElementById("dateEnd").disabled = true;
+
+        document.getElementById("customer_submit").disabled = true;
+        document.getElementById("special_submit").disabled = false;
+
+        jobNumber.disabled = true;
+        customer_po.disabled = true;
+
+        if (!invoiceNumber.disabled) {
+            invoiceNumber.focus();
+        }
+
+        if (invoiceNumber.disabled) {
+            invoiceNumber.value = '';
+        }
+
+        if ((document.getElementById("chkJobNo").checked ? false: true) &&
+            (document.getElementById("chkInvoiceNo").checked ? false: true) &&
+            (document.getElementById("chkSearchCustomerPO").checked ? false: true) &&
+            (document.getElementById("chkSearchDateRange").checked ? false: true)) {
+
+          document.getElementById("inputCustomer").disabled = false;
+          document.getElementById("near_match").disabled = false;
+          document.getElementById("chkDateRange").disabled = false;
+
+          document.getElementById("customer_submit").disabled = false;
+          document.getElementById("special_submit").disabled = true;
+        }
+    }
+
+    function EnableDisableByDateSearch(search_date_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        var jobNumber = document.getElementById("jobNumber");
+        var dateStartDate = document.getElementById("searchDateStart");
+        var dateEndDate = document.getElementById("searchDateEnd");
+        var inputCustomer = document.getElementById("inputCustomer");
+        var customer_po = document.getElementById("customer_po");
+
+        dateStartDate.disabled = search_date_checkbox.checked ? false : true;
+        dateEndDate.disabled = search_date_checkbox.checked ? false : true;
+
+        jobNumber.value = '';
+        invoiceNumber.value = '';
+        inputCustomer.value = '';
+        customer_po.value = '';
+
+        document.getElementById("chkJobNo").checked = false;
+        document.getElementById("chkInvoiceNo").checked = false;
+        document.getElementById("chkDateRange").checked = false;
+        document.getElementById("chkSearchCustomerPO").checked = false;
+
+        document.getElementById("inputCustomer").disabled = true;
+        document.getElementById("near_match").disabled = true;
+        document.getElementById("chkDateRange").disabled = true;
+        document.getElementById("dateStart").disabled = true;
+        document.getElementById("dateEnd").disabled = true;
+
+        document.getElementById("customer_submit").disabled = true;
+        document.getElementById("special_submit").disabled = false;
+
+        jobNumber.disabled = true;
+        invoiceNumber.disabled = true;
+        customer_po.disabled = true;
+
+        if (!dateStartDate.disabled) {
+            dateStartDate.focus();
+        }
+
+        if ((document.getElementById("chkJobNo").checked ? false: true) &&
+            (document.getElementById("chkInvoiceNo").checked ? false: true) &&
+            (document.getElementById("chkSearchCustomerPO").checked ? false: true) &&
+            (document.getElementById("chkSearchDateRange").checked ? false: true)) {
+
+          document.getElementById("inputCustomer").disabled = false;
+          document.getElementById("near_match").disabled = false;
+          document.getElementById("chkDateRange").disabled = false;
+
+          document.getElementById("customer_submit").disabled = false;
+          document.getElementById("special_submit").disabled = true;
+        }
+    }
+
+  </script>
+
+  <div class="container" style="height: 60px">
+    <h3><strong>Job Search Tool</strong></h3>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="container">
+        <form action="#" method="POST">
+          <div class="row">
+            <div class="col-sm-6 col-xs-8">
+              Customer Lookup:
+              <input type="checkbox" name="near_match" id="near_match" style="margin: 0px 5px 0px 10px">near match
+              <input list="top_50_co" id="inputCustomer" class="form-control" name="customer">
+            </div>
+          </div>
+          <div class="row" style="padding: 20px 0px 0px 0px">
+            <div class="custom-checkbox col-sm-5">
+              <label for="dateCheckBox">
+                <input type="checkbox" id="chkDateRange" name="chkDateRange" onclick="EnableDisableDateRange(this)"/>
+                <strong>limit by date range</strong>
+                (yyyy-mm-dd)
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-xs-4">
+              Start Date
+              <input type="date" id="dateStart" class="form-control" name="date_start" disabled>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+              End Date
+              <input type="date" id="dateEnd" class="form-control" name="date_end" disabled>
+            </div>
+          </div>
+          <div class="input submit" style="padding-top: 15px">
+            <input type="submit" value="Submit" id="customer_submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="container">
+        <form action="#" method="POST">
+
+          <div class="row">
+
+            <div class="col-sm-3 col-xs-4">
+              <label for="jobno_checkbox">
+                <input type="checkbox" id="chkJobNo" name="chkJobNo" onclick="EnableDisableByJobNumber(this)"/>
+                <strong>By Job Number</strong>
+              </label>
+              <div class="row">
+                <div class="col-sm-12">
+                  Job Number
+                  <input type="text" id="jobNumber" class="form-control" name="jobNumber" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-xs-4">
+              <label for="invoice_checkbox">
+                <input type="checkbox" id="chkInvoiceNo" name="chkInvoice" onclick="EnableDisableByInvoiceNumber(this)"/>
+                <strong>By Invoice Number</strong>
+              </label>
+              <div class="row">
+                <div class="col-sm-12">
+                  Invoice Number
+                  <input type="text" id="invoiceNumber" class="form-control" name="invoiceNumber" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="padding: 20px 0px 0px 0px">
+            <div class="custom-checkbox col-sm-5">
+              <label for="search_date_checkbox">
+                <input type="checkbox" id="chkSearchDateRange"
+                       name="chkSearchDateRange" onclick="EnableDisableByDateSearch(this)"/>
+                <strong>Search by date range (yyyy-mm-dd)</strong>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-xs-4">
+              Start Date
+              <input type="date" id="searchDateStart" class="form-control" name="search_date_start" disabled>
+            </div>
+            <div class="col-sm-3 col-xs-4">
+              End Date
+              <input type="date" id="searchDateEnd" class="form-control" name="search_date_end" disabled>
+            </div>
+          </div>
+
+          <div class="row" style="padding: 20px 0px 0px 0px">
+            <div class="custom-checkbox col-sm-5">
+              <label for="search_po_checkbox">
+                <input type="checkbox" id="chkSearchCustomerPO"
+                       name="chkSearchCustomerPO" onclick="EnableDisableByPOSearch(this)"/>
+                <strong>Search by Customer PO</strong>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-xs-4">
+              Customer PO
+              <input type="text" id="customer_po" class="form-control" name="customer_po" disabled>
+            </div>
+          </div>
+
+          <div class="input submit" style="padding-top: 27px;">
+            <input type="submit" value="Submit" id="special_submit" disabled>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <datalist id="top_50_co">
+    {% for resul in top_50_co %}
+      <option value="{{resul[0]}}">
+    {% endfor %}
+  </datalist>
+{% endblock %}

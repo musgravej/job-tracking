@@ -1,0 +1,112 @@
+{% extends "table_result_layout.html" %}
+{% block content %}
+
+  <script type="text/javascript">
+    function EnableDisableCancel(cancel_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+
+        if (cancel_checkbox.checked) {
+            invoiceNumber.disabled = true;
+            document.getElementById("chkInvoiceNo").checked = false;
+        }
+
+    }
+
+    function EnableDisableInvoice(invoice_checkbox) {
+        var invoiceNumber = document.getElementById("invoiceNumber");
+        invoiceNumber.disabled = invoice_checkbox.checked ? false : true;
+
+        if (!invoiceNumber.disabled) {
+            invoiceNumber.focus();
+        }
+
+        if (invoice_checkbox.checked) {
+            document.getElementById("chkCancel").checked = false;
+        }
+
+    }
+
+  </script>
+
+  <style>
+
+    .bordered {
+      border: red 1px solid;
+    }
+
+  </style>
+
+  <form action="#" method="POST">
+    <div class="panel-group" style="margin-left: 40px;">
+
+      <div class="panel panel-default col-xs-6">
+        <div class="row">
+          <div id="panelBody" class="panel-body">
+            <label for="contactInformation" style="font-size: large">Update Job Status</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            {% if job_number %}
+              Job Number:<input id="inputJobnum" class="form-control" name="jobnum" value="{{ job_number }}">
+            {% else %}
+              Job Number:<input id="inputJobnum" class="form-control" name="jobnum">
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+          <div class="col-xs-8">
+            <label for="cancel_checkbox">
+              <input type="checkbox" value="1" id="chkCancel" name="chkCancel" onclick="EnableDisableCancel(this)"/>
+              <strong>Cancel Job</strong>
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-8">
+            <label for="invoice_checkbox">
+              <input type="checkbox" value="1" id="chkInvoiceNo" name="chkInvoice" onclick="EnableDisableInvoice(this)"/>
+              <strong>Update Invoice Number</strong>
+            </label>
+          </div>
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-xs-6">
+              Invoice Number:<input type="text" id="invoiceNumber" class="form-control" name="invoiceNumber" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="input submit" style="padding: 27px 0 25px 0;">
+          <input type="submit" value="Submit" id="submit">
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="row" style="margin: 0 0 0 0;">
+                {% if category == 'error' %}
+                  <div class="alert alert-danger">
+                {% else %}
+                  <div class="alert alert-success">
+                {% endif %}
+                  <ul class=flashes>
+                      <li>{{ message }}</li>
+                  </ul>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+      </div>
+    </div>
+  </form>
+
+{% endblock %}

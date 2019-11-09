@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+  <style>
+
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: #3c78a9;
+      text-align: center;
+    }
+
+    .jumbotron {
+      background-color: green;
+    }
+
+    .bordered {
+      border: red 1px solid;
+    }
+
+  </style>
+
+  <body>
+    <div class="jumbotron text-center">
+      <h1>Bindery 1, Inc</h1>
+{#      <div>#}
+{#        <img src="{{ url_for('static', filename='B1LOGO_2007.png') }}" height="100" />#}
+{#      </div>#}
+      <p>JOB TRACKING</p>
+    </div>
+
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10">
+
+        <h1>Welcome</h1>
+        <h2>The date and time is {{time}}</h2>
+{#        <h2>Click here for#}
+{#            <a href="{{ url_for('job_search') }}">Job search</a>#}
+{#            page#}
+{#        </h2>#}
+{#        <br>#}
+{#        <h3>Click here for a listing of your#}
+{#            <ul>#}
+{#                <li><a href="{{ url_for('update_status', job_number=None) }}">Update Job Status</a></li>#}
+{#                <li><a href="{{ url_for('weather_data') }}">Weather data</a></li>#}
+{#                <li><a href="{{ url_for('new_ticket') }}">New job ticket</a></li>#}
+{#            </ul>#}
+{#        </h3>#}
+      </div>
+      <div class="col-xs-1"></div>
+    </div>
+
+    <div class="footer">
+      <p>Ver: 1.05</p>
+    </div>
+
+  </body>
+</html>

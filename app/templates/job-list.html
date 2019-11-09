@@ -1,0 +1,10 @@
+{% extends "layout_bootstrap.html" %}
+
+{% block content %}
+    <ul>
+        {% for line in cursor %}
+            <li><b>{{ line[0] }}</b> | {{ line[1] }} | {{ line[2] }} | {{ line[3] }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

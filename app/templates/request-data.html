@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Information</title>
+</head>
+<body>
+  <h3>Request data</h3>
+  <ul>
+    {% for key, value in request.headers %}
+    <li><strong>{{key}}</strong>: {{value}}</li>
+    {% endfor %}
+    <li><strong>Your computer ip:</strong> {{ req['remote_addr'] }}</li>
+  </ul>
+
+</body>
+</html>
