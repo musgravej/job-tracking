@@ -12,7 +12,7 @@ defer==1.0.6
 drumhat==0.0.5
 envirophat==0.0.6
 ExplorerHAT==0.4.2
-Flask==0.12.2
+Flask==1.0
 Flask-Images==2.1.2
 Flask-MySQL==1.4.0
 Flask-SQLAlchemy==2.3.2
