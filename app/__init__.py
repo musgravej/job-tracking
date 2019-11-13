@@ -111,7 +111,7 @@ def new_ticket_from_database(job_number, action):
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
-                                     "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
+                                     "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
 
                 cmd_job_detail = ("insert into job_detail values (%s, %s, %s, date(now()), %s, "
                                   "time(now()), %s, %s, timestamp(now()), %s);")
@@ -149,7 +149,8 @@ def new_ticket_from_database(job_number, action):
                                                    usr.get('rep'), usr.get('binderyInput'),
                                                    usr.get('shippingInput'),
                                                    usr.get('TICKETREF_PLACEHOLDER'),
-                                                   usr.get('customerPO', '')[0:20]))
+                                                   usr.get('customerPO', '')[0:20],
+                                                   usr.get('linkedBindery')))
                 g.user_cnx.commit()
 
                 cursor.execute("select * from select_ticket where job_number = %s;", (new_num,))
@@ -200,7 +201,7 @@ def new_ticket_from_database(job_number, action):
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                      "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
-                                     "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
+                                     "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
 
                 cursor.execute(cmd_ticket_detail, (job_number, usr.get('prevJob'), usr.get('quote'),
                                                    due_date, usr.get('customer', '')[0:65],
@@ -231,7 +232,8 @@ def new_ticket_from_database(job_number, action):
                                                    order_date, usr.get('rep'), usr.get('binderyInput'),
                                                    usr.get('shippingInput'),
                                                    usr.get('TICKETREF_PLACEHOLDER'),
-                                                   usr.get('customerPO', '')[0:20]))
+                                                   usr.get('customerPO', '')[0:20],
+                                                   usr.get('linkedBindery')))
                 # g.user_cnx.commit()
 
                 sql = ("UPDATE job_detail SET customer = %s, job_name = %s, "
@@ -314,7 +316,7 @@ def new_bindery_ticket():
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
-                                         "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
+                                         "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
 
                     cmd_job_detail = ("INSERT INTO job_detail VALUES (%s, %s, %s, DATE(NOW()), %s, "
                                       "TIME(NOW()), %s, %s, TIMESTAMP(NOW()), %s);")
@@ -353,7 +355,8 @@ def new_bindery_ticket():
                                                        usr.get('rep'), usr.get('binderyInput'),
                                                        usr.get('shippingInput'),
                                                        usr.get('TICKETREF_PLACEHOLDER'),
-                                                       usr.get('customerPO', '')[0:20]))
+                                                       usr.get('customerPO', '')[0:20],
+                                                       usr.get('linkedBindery')))
                     g.user_cnx.commit()
 
                     cursor.execute("SELECT * FROM select_ticket WHERE job_number = %s;", (new_num,))
@@ -440,14 +443,14 @@ def new_ticket():
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
                                          "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, "
-                                         "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
+                                         "%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);")
 
                     cmd_job_detail = ("INSERT INTO job_detail VALUES (%s, %s, %s, DATE(NOW()), %s, "
                                       "TIME(NOW()), %s, %s, TIMESTAMP(NOW()), %s);")
 
                     cursor.execute(cmd_job_detail, (new_num, usr.get('customer', '')[0:65],
                                                     usr.get('jobname', '')[0:65],
-                                                    None, "1", request.environ['REMOTE_ADDR'], "0"))
+                                                    None, 1, request.environ['REMOTE_ADDR'], 0))
 
                     cursor.execute(cmd_ticket_detail, (new_num, usr.get('prevJob'), usr.get('quote'),
                                                        due_date, usr.get('customer', '')[0:65],
@@ -479,7 +482,8 @@ def new_ticket():
                                                        usr.get('rep'), usr.get('binderyInput'),
                                                        usr.get('shippingInput'),
                                                        usr.get('TICKETREF_PLACEHOLDER'),
-                                                       usr.get('customerPO', '')[0:20]))
+                                                       usr.get('customerPO', '')[0:20],
+                                                       usr.get('linkedBindery')))
                     g.user_cnx.commit()
 
                     cursor.execute("SELECT * FROM select_ticket WHERE job_number = %s;", (new_num,))
@@ -686,16 +690,20 @@ def update_status(job_number):
 @app.route("/ticket/<job_number>/")
 def ticket_link(job_number):
     cursor = g.user_cnx.cursor(buffered=True, dictionary=True)
-    cursor.execute("SELECT * FROM select_ticket WHERE job_number = %s;", (job_number,))
+    try:
+        cursor.execute("SELECT * FROM select_ticket WHERE job_number = %s;", (job_number,))
 
-    content = cursor.fetchall()[0]
-    comment_crlf = content['comment'].decode('UTF-8').replace("\r\n", "<br/>")
-    bindery_crlf = content['bindery'].decode('UTF-8').replace("\r\n", "<br/>")
-    shipping_crlf = content['shipping'].decode('UTF-8').replace("\r\n", "<br/>")
+        content = cursor.fetchall()[0]
+        comment_crlf = content['comment'].decode('UTF-8').replace("\r\n", "<br/>")
+        bindery_crlf = content['bindery'].decode('UTF-8').replace("\r\n", "<br/>")
+        shipping_crlf = content['shipping'].decode('UTF-8').replace("\r\n", "<br/>")
 
-    return render_template("database-job-ticket.html", title="Job Ticket {}".format(job_number), **content,
-                           print_comment=comment_crlf, print_bindery=bindery_crlf,
-                           print_shipping=shipping_crlf)
+        return render_template("database-job-ticket.html", title="Job Ticket {}".format(job_number), **content,
+                               print_comment=comment_crlf, print_bindery=bindery_crlf,
+                               print_shipping=shipping_crlf)
+
+    except IndexError as e:
+        return render_template("change-log.html", title="Change Log")
 
 
 @app.route("/job-ticket/")

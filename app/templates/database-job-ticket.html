@@ -274,7 +274,9 @@
     </div>
     <div style="margin: 22px 0 0 20px; width: 550px;">
       <div class="entryBox noWrap" style="width: 200px;">Previous Job #</div>
-      <div class="entryBoxValue" style="margin-left: 110px; width: 80px">{{ previous_job }}</div>
+      <div class="entryBoxValue" style="margin-left: 110px; width: 80px">
+        <a style="text-decoration:none" href="{{ url_for('ticket_link', job_number=previous_job) }}">{{ previous_job }}</a>
+      </div>
       <div class="entryBox noWrap" style="margin-left: 200px">Quote #</div>
       <div class="entryBoxValue" style="margin-left: 260px; width: 100px">{{ quote }}</div>
       <div style="margin-left: 370px;">
@@ -545,20 +547,30 @@
       </div>
     </div>
     <div style="margin: 6px 0 0 20px; width: 8in;">
-      <div class="two-lines" style="width: 7.1in; margin: -.05in 0 0 .74in;">
+      <div class="two-lines" style="width: 6.9in; margin: -.05in 0 0 .84in;">
         {{ print_bindery|safe }}
       </div>
       <div style="margin-left: 0;">
-        <div align="left" class="lastEntryBox" style="width: .7in;"><b>Bindery:</b></div>
-        <div align="left" class="lineLastField" style="line-height: 22px; margin-left: .72in;">&nbsp;</div>
+        <div align="left" class="lastEntryBox" style="width: .8in;"><b>Bindery:</b></div>
+        <div align="left" class="lineLastField" style="line-height: 22px; margin-left: .82in;">&nbsp;</div>
       </div>
     </div>
-    <div style="margin: 6px 0 0 20px; width: 8in;">
-      <div style="margin-left: .72in;">
-        <div align="center" class="lineLastField" style="">&nbsp;</div>
-      </div>
+      {% if linked_bindery != '' %}
+        <div style="margin: 6px 0 0 20px; width: 8in;">
+          <div align="left" class="lastEntryBox" style="width: .8in;">
+            <b>
+              <a href="{{ url_for('ticket_link', job_number=linked_bindery) }}">{{ linked_bindery }}</a>
+              &nbsp;&nbsp;&#128279;
+            </b></div>
+          <div align="left" class="lineLastField" style="line-height: 22px; margin-left: .82in;">&nbsp;</div>
+        </div>
+      {% else %}
+        <div style="margin: 6px 0 0 20px; width: 8in;">
+          <div align="left" class="lastEntryBox" style="width: .8in;"><b>&nbsp;</b></div>
+          <div align="left" class="lineLastField" style="line-height: 22px; margin-left: .82in;">&nbsp;</div>
+        </div>
+      {% endif %}
     </div>
-
     <div class="commentTextBox" style="position: absolute; height: .45in; width: 7.18in; margin: -42px 0 0 1.02in; ">
         &nbsp;
     </div>

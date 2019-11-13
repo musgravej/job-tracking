@@ -534,7 +534,10 @@
                     </div>
 {#                    <br>#}
                     <div class="row col-xs-10">
-                      Bindery:<textarea class="form-control" id="id-binderyInput" rows="1" name="binderyInput" >{{ print_bindery }}</textarea>
+                      Bindery:<textarea class="form-control" id="id-binderyInput" rows="2" name="binderyInput">{{ print_bindery }}</textarea>
+                    </div>
+                    <div class="row col-xs-10" style="margin-top: 10px">
+                      Bindery #&nbsp;&nbsp;<input title="" type="text" id="id-linkedBindery" name="linkedBindery" value="{{ linked_bindery }}">
                     </div>
                     <div class="row col-xs-10">
                       Shipping:<textarea class="form-control" id="id-shippingInput" rows="1" name="shippingInput" >{{ print_shipping }}</textarea>

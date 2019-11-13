@@ -1,0 +1,10 @@
+added ini file
+* change database to job_tracking
+* add linked_bindery to ticket_detail
+* add linked_bindery to select_ticket view
+* add linked_bindery to edit_ticket view
+
+added linked bindery # to job ticket
+added linked bindery # to new job ticket
+added url link for old job number to job ticket
+ 
