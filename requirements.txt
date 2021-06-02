@@ -76,7 +76,7 @@ st7036==1.4.3
 ubuntu-drivers-common==0.0.0
 ufw==0.35
 unattended-upgrades==0.1
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==15.2.0
 Werkzeug==0.14.1
 WTForms==2.1
