@@ -24,7 +24,7 @@ Jinja2==2.10
 language-selector==0.1
 lightdm-gtk-greeter-settings==1.2.1
 louis==2.6.4
-lxml==3.5.0
+lxml==4.6.5
 Mako==1.0.3
 MarkupSafe==1.0
 mate-tweak==3.5.10
