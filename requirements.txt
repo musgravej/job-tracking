@@ -43,7 +43,7 @@ picraft==1.0
 piglow==1.2.4
 pigpio==1.30
 PIL==1.1.7
-Pillow==3.1.2
+Pillow==9.0.1
 pillowcase==2.0.0
 polib==1.0.7
 psutil==3.4.2
